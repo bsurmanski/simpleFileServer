@@ -46,8 +46,8 @@ func send(port int, filename string) {
     }
 }
 
-func receive() {
-    conn, err := net.Dial("tcp", "127.0.0.1:8080")
+func receive(ip string) {
+    conn, err := net.Dial("tcp", ip + ":8080")
 
     if err != nil {
         fmt.Println("error client: " + err.Error())
@@ -73,7 +73,11 @@ func main() {
         send(8080, os.Args[2])
     } else if os.Args[1] == "receive" {
         fmt.Println("recieving file")
-        receive()
+        ip := "127.0.0.1"
+        if len(os.Args) > 2 {
+            ip = os.Args[2]
+        }
+        receive(ip)
     } else {
         fmt.Println("unknown action '" + os.Args[1] + "'; exiting")
         os.Exit(-1)
