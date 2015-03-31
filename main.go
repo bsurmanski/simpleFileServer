@@ -6,7 +6,7 @@ import "bufio"
 import "io/ioutil"
 import "os"
 
-func send(port int, filename string) {
+func host(filename string) {
     ln, err := net.Listen("tcp", ":8080")
     defer ln.Close()
 
@@ -64,13 +64,13 @@ func main() {
         os.Exit(0)
     }
 
-    if os.Args[1] == "send" {
-        fmt.Println("sending file")
+    if os.Args[1] == "host" {
+        fmt.Println("hosting file")
         if len(os.Args) <= 2 {
             fmt.Println("no file specified; exiting")
             os.Exit(1)
         }
-        send(8080, os.Args[2])
+        host(os.Args[2])
     } else if os.Args[1] == "receive" {
         fmt.Println("recieving file")
         ip := "127.0.0.1"
